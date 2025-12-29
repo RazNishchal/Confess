@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/ConfessionList.css";
-import { database, set, ref, onValue } from "../config/firebase";
+import { database, ref, onValue } from "../config/firebase";
 import Moment from "react-moment";
 import { ShimmerSimpleGallery } from "react-shimmer-effects";
 import { deleteData } from "../utils/database";
@@ -9,58 +9,50 @@ const ConfessionList = () => {
   const [confessionList, setConfessionList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const monthList = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "July",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  const monthList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
   useEffect(() => {
     deleteData();
-    onValue(ref(database, "confessions"), (snapshot) => {
-      let _data = snapshot.val();
-      let _confessionList = [];
+    const confessionsRef = ref(database, "confessions");
+    
+    // Using onValue to listen for real-time updates
+    const unsubscribe = onValue(confessionsRef, (snapshot) => {
+      const _data = snapshot.val();
+      const _list = [];
 
       for (let key in _data) {
-        _confessionList.push(_data[key]);
+        _list.push({ id: key, ..._data[key] });
       }
 
-      setConfessionList(_confessionList);
+      // Optional: Sort by newest first
+      _list.sort((a, b) => b.createdAt - a.createdAt);
+
+      setConfessionList(_list);
       setIsLoading(false);
     });
+
+    return () => unsubscribe(); // Cleanup listener on unmount
   }, []);
+
   return (
-    <center>
+    <div className="confession-list-container">
       <div className="confession-list">
         {isLoading ? (
-          <div style={{ width: "65%" }}>
-            <ShimmerSimpleGallery
-              card
-              imageHeight={300}
-              row={2}
-              col={2}
-              caption
-            />
+          <div className="shimmer-wrapper">
+            <ShimmerSimpleGallery card imageHeight={300} row={2} col={2} caption />
           </div>
-        ) : confessionList ? (
-          confessionList.map((confession, index) => {
-            let _date = new Date(confession.createdAt);
+        ) : confessionList.length > 0 ? (
+          confessionList.map((confession) => {
+            const _date = new Date(confession.createdAt);
             return (
-              <div key={index} className="confession-card">
-                <div>{`${_date.getFullYear()} ${
-                  monthList[_date.getMonth()]
-                } ${_date.getDate()}`}</div>
-                <br />
-                <br />
-                {confession.note}
+              <div key={confession.id} className="confession-card">
+                <div className="confession-date">
+                  {`${monthList[_date.getMonth()]} ${_date.getDate()}, ${_date.getFullYear()}`}
+                </div>
+                
+                <div className="confession-content">
+                  {confession.note}
+                </div>
 
                 <div className="time-ago">
                   <Moment fromNow>{confession.createdAt}</Moment>
@@ -69,10 +61,10 @@ const ConfessionList = () => {
             );
           })
         ) : (
-          "No Confession Notes.."
+          <p className="no-data">No Confession Notes found...</p>
         )}
       </div>
-    </center>
+    </div>
   );
 };
 
