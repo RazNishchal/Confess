@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/ConfessionList.css";
-import { database, ref, onValue } from "../config/firebase";
+import { database, set, ref, onValue } from "../config/firebase";
 import Moment from "react-moment";
 import { ShimmerSimpleGallery } from "react-shimmer-effects";
 import { deleteData } from "../utils/database";
@@ -9,57 +9,70 @@ const ConfessionList = () => {
   const [confessionList, setConfessionList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const monthList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
+  const monthList = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "July",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   useEffect(() => {
     deleteData();
-    const confessionsRef = ref(database, "confessions");
-    const unsubscribe = onValue(confessionsRef, (snapshot) => {
-      const data = snapshot.val();
-      const list = [];
-      for (let key in data) {
-        list.push({ id: key, ...data[key] });
+    onValue(ref(database, "confessions"), (snapshot) => {
+      let _data = snapshot.val();
+      let _confessionList = [];
+
+      for (let key in _data) {
+        _confessionList.push(_data[key]);
       }
-      list.sort((a, b) => b.createdAt - a.createdAt);
-      setConfessionList(list);
+
+      setConfessionList(_confessionList);
       setIsLoading(false);
     });
-    return () => unsubscribe();
   }, []);
-
   return (
-    <div className="confession-page-wrapper">
-      <div className="confession-grid">
+    <center>
+      <div className="confession-list">
         {isLoading ? (
-          <div className="full-width">
-            <ShimmerSimpleGallery card imageHeight={200} row={2} col={2} caption />
+          <div style={{ width: "65%" }}>
+            <ShimmerSimpleGallery
+              card
+              imageHeight={300}
+              row={2}
+              col={2}
+              caption
+            />
           </div>
-        ) : confessionList.length > 0 ? (
-          confessionList.map((confession) => {
-            const _date = new Date(confession.createdAt);
+        ) : confessionList ? (
+          confessionList.map((confession, index) => {
+            let _date = new Date(confession.createdAt);
             return (
-              <div key={confession.id} className="confession-card">
-                <div className="card-header">
-                  <span className="date-text">
-                    {`${monthList[_date.getMonth()]} ${_date.getDate()}, ${_date.getFullYear()}`}
-                  </span>
-                </div>
-                
-                <div className="card-body">
-                  <p className="confession-text">{confession.note}</p>
-                </div>
+              <div key={index} className="confession-card">
+                <div>{`${_date.getFullYear()} ${
+                  monthList[_date.getMonth()]
+                } ${_date.getDate()}`}</div>
+                <br />
+                <br />
+                {confession.note}
 
-                <div className="card-footer">
+                <div className="time-ago">
                   <Moment fromNow>{confession.createdAt}</Moment>
                 </div>
               </div>
             );
           })
         ) : (
-          <div className="full-width">No Confession Notes found..</div>
+          "No Confession Notes.."
         )}
       </div>
-    </div>
+    </center>
   );
 };
 
