@@ -1,80 +1,108 @@
+/* Outer wrapper to handle centering and page padding */
 .confession-list-container {
   width: 100%;
-  display: flex;
-  justify-content: center;
   padding: 20px 0;
-}
-
-.confession-list {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* Allows cards to wrap to the next line */
-  gap: 20px; /* Modern way to add spacing between flex items */
-  width: 90%; /* Covers most of the screen */
-  margin-top: 20px;
+  box-sizing: border-box;
 }
 
+/* The Grid System */
+.confession-list {
+  display: grid;
+  /* 2 equal columns for Large Screens */
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 30px; 
+  width: 80%; /* Covers 80% on desktop */
+  max-width: 1200px;
+  margin-top: 40px;
+}
+
+/* Individual Card Styling */
 .confession-card {
-  /* Dynamic width: ~45% on desktop, 90%+ on mobile */
-  flex: 1 1 350px; 
-  max-width: 450px;
-  
-  min-height: 200px; /* Minimum height, but can grow */
-  height: auto;      /* Allows content to expand without overflow */
-  
+  background: #ffffff;
+  border-radius: 16px;
   padding: 25px;
-  padding-bottom: 40px; /* Space for the absolute positioned 'time-ago' */
-  border-radius: 15px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  padding-bottom: 50px; /* Space for the time-ago footer */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eee;
   position: relative;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease;
-  box-sizing: border-box;
+  text-align: left;
+  /* Fixed overflow issues */
+  min-height: 180px;
+  height: auto; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .confession-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
+/* Date Header */
 .confession-date {
-  font-weight: bold;
-  color: #555;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   margin-bottom: 15px;
-  font-size: 0.9rem;
 }
 
+/* Confession Body Text */
 .confession-content {
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.6;
   color: #333;
-  word-wrap: break-word; /* Ensures long words don't break the layout */
-  white-space: pre-wrap; /* Preserves line breaks from the textarea */
+  word-wrap: break-word; /* Prevents long text from breaking layout */
+  white-space: pre-wrap; /* Keeps the spacing/enters from the textarea */
 }
 
+/* Absolute positioned time footer */
 .time-ago {
   position: absolute;
-  bottom: 12px;
-  right: 20px;
+  bottom: 15px;
+  left: 25px;
   font-size: 0.75rem;
-  color: #999;
+  color: #bbb;
   font-style: italic;
 }
 
-/* Shimmer responsive width */
-.shimmer-wrapper {
-  width: 80%;
+/* Full-width helpers for loading/empty states */
+.loading-wrapper, .no-data {
+  grid-column: 1 / -1; 
+  text-align: center;
+  width: 100%;
 }
 
-/* Mobile adjustments */
-@media (max-width: 600px) {
+/* --- Mobile and Tablet Responsiveness --- */
+
+/* For Small Desktops / Tablets */
+@media (max-width: 1024px) {
   .confession-list {
-    width: 95%;
+    width: 90%;
+    gap: 20px;
   }
-  
+}
+
+/* For Mobile Devices */
+@media (max-width: 768px) {
+  .confession-list {
+    /* Switch to 1 column */
+    grid-template-columns: 1fr; 
+    width: 85%; /* 85% width leaves 7.5% margin on each side */
+    gap: 25px;
+    margin-top: 20px;
+  }
+
   .confession-card {
-    flex: 1 1 100%; /* Take full width on small screens */
-    min-height: 150px;
+    padding: 20px;
+    padding-bottom: 45px;
+  }
+
+  .confession-content {
+    font-size: 1rem; /* Slightly smaller text for small screens */
   }
 }
