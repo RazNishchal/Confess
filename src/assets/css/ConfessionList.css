@@ -24,6 +24,20 @@
  
 }
 
+.card-content {
+  font-size: 10px;
+  line-height: 1.6; /* Increased line height for better readability */
+  color: #333;
+  
+  /* CRITICAL: Text Wrapping & Overflow Fixes */
+  word-wrap: break-word;       /* Breaks long strings of text */
+  overflow-wrap: break-word;   /* Modern browser support for word-wrap */
+  white-space: pre-wrap;      /* Preserves line breaks from the textarea */
+  
+  flex-grow: 1;                /* Pushes the footer to the bottom of the card */
+  margin-bottom: 20px;
+}
+
 .time-ago {
   position: absolute;
   bottom: 5px;
