@@ -1,33 +1,36 @@
-/* Outer wrapper for page margins */
-.confession-container {
-  padding: 40px 10%; /* Large side margins for desktop */
+/* Container that handles overall page margins */
+.list-wrapper {
+  width: 100%;
   display: flex;
   justify-content: center;
+  padding: 40px 0;
+  box-sizing: border-box;
 }
 
-/* The Grid System */
+/* The Grid: Strictly 2 columns horizontally on Desktop */
 .confession-grid {
   display: grid;
-  /* Desktop: 2 columns with equal width */
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 30px; /* Good space between horizontal and vertical cards */
-  width: 100%;
+  grid-template-columns: repeat(2, 1fr); /* Forces two items per row */
+  gap: 30px; /* Good gap between cards */
+  width: 85%; /* Side margins for the whole list */
   max-width: 1200px;
 }
 
+/* Individual Card Styling */
 .confession-card {
-  /* FIX OVERFLOW: Remove fixed height, use min-height */
-  min-height: 200px;
+  /* Fix: Remove fixed height so text can wrap and expand the card */
+  min-height: 180px; 
   height: auto; 
   
+  background: white;
   padding: 25px;
-  padding-bottom: 50px; /* Space for absolute time-ago */
-  border-radius: 16px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  background: #fff;
+  padding-bottom: 50px; /* Space for the absolute time-ago text */
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
   position: relative;
   display: flex;
   flex-direction: column;
+  border: 1px solid #f0f0f0;
   transition: transform 0.2s ease;
 }
 
@@ -35,50 +38,49 @@
   transform: translateY(-5px);
 }
 
-.confession-date {
+/* Date at the top */
+.card-date {
+  font-size: 0.85rem;
   font-weight: bold;
-  color: #888;
-  margin-bottom: 15px;
+  color: #999;
+  margin-bottom: 12px;
 }
 
-.confession-note {
-  font-size: 1.05rem;
+/* THE CONTENT: This handles the flex-wrap behavior for long text */
+.card-content {
+  font-size: 1rem;
   line-height: 1.6;
   color: #333;
-  /* PREVENT TEXT OVERFLOW */
-  word-wrap: break-word;
+  word-wrap: break-word; /* Wraps long words */
   overflow-wrap: break-word;
-  white-space: pre-wrap; /* Keeps user line breaks */
+  white-space: pre-wrap; /* Keeps user enters/spacing */
+  flex-grow: 1;
 }
 
+/* Absolute positioned time ago */
 .time-ago {
   position: absolute;
   bottom: 15px;
-  right: 25px;
-  font-size: 0.8rem;
-  color: #aaa;
+  left: 25px;
+  font-size: 0.75rem;
+  color: #bbb;
 }
 
-/* Loading/Empty State helpers */
-.full-width {
-  grid-column: 1 / -1;
-  text-align: center;
-}
-
-/* --- MOBILE RESPONSIVENESS --- */
-
+/* Responsive: Change 2 columns to 1 column on Mobile */
 @media (max-width: 768px) {
-  .confession-container {
-    padding: 20px 5%; /* Smaller margins for mobile */
-  }
-
   .confession-grid {
-    /* Mobile: 1 column only */
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Stack one on top of another */
+    width: 90%; /* Side margins for mobile */
     gap: 20px;
   }
 
   .confession-card {
-    min-height: 150px;
+    padding: 20px;
+    padding-bottom: 45px;
   }
+}
+
+.full-width {
+  grid-column: 1 / -1;
+  text-align: center;
 }
