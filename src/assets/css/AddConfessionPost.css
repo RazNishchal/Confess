@@ -22,6 +22,7 @@
 /* Textarea Styling */
 .confession-textarea {
   width: 90%;
+  height: 90%;
   padding: 20px;
   border: 2px solid #e0e0e0;
   border-radius: 20px; /* Highly rounded corners */
