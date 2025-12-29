@@ -34,7 +34,7 @@ const AddConfessionPost = () => {
         <textarea
           rows="8"
           cols="85"
-          placeholder="Write your Confession here..."
+          placeholder="Confess here..."
           value={text}
           onChange={(e) => setText(e.target.value)}
         ></textarea>
