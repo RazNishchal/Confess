@@ -41,7 +41,8 @@
 }
 
 .confession-note::-webkit-scrollbar {
-  width: 3px; /* Makes the bar very thin and clean */
+  width: 3px;
+  margin-left: 10px;/* Makes the bar very thin and clean */
 }
 
 .time-ago {
