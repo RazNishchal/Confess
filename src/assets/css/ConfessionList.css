@@ -18,14 +18,14 @@
 }
 .confessed-note{
    position: absolute;
-  height: 50%;
+  height: 55%;
   width: 90%;
   overflow: hidden;
  
 }
 
 .confessed-note {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.6; /* Increased line height for better readability */
   color: #333;
   
