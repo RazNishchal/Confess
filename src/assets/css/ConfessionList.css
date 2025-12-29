@@ -17,8 +17,9 @@
   position: relative;
 }
 .confessed-note{
-  height: 80%;
+  height: 60%;
   width: 90%;
+  position: absolute;
 }
 
 .time-ago {
