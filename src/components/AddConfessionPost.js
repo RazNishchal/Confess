@@ -31,7 +31,7 @@ const AddConfessionPost = () => {
       <div className="add-confession-post">
         <textarea
           rows="8"
-          placeholder="Confess here..."
+          placeholder="Write your confession here..."
           value={text}
           onChange={(e) => setText(e.target.value)}
           className="confession-textarea"
@@ -47,7 +47,7 @@ const AddConfessionPost = () => {
         <small>Confessed Note will remain for 24 hrs.</small>
       </div>
       
-      <ToastContainer delay={2500} />
+      <ToastContainer delay={2000} />
     </div>
   );
 };
