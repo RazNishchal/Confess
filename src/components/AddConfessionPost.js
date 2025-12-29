@@ -35,6 +35,7 @@ const AddConfessionPost = () => {
           value={text}
           onChange={(e) => setText(e.target.value)}
           className="confession-textarea"
+            spellCheck="false"
         ></textarea>
         
         <button className="confess-btn" onClick={addConfession}>
