@@ -12,6 +12,7 @@
 .add-confession-post {
   /* 80% width on mobile, 70% on large screens via media query below */
   width: 80%; 
+  height: 90%;
   display: flex;
   flex-direction: column;
   align-items: center; /* Centers the button under the textarea */
@@ -20,7 +21,7 @@
 
 /* Textarea Styling */
 .confession-textarea {
-  width: 100%;
+  width: 90%%;
   padding: 20px;
   border: 2px solid #e0e0e0;
   border-radius: 20px; /* Highly rounded corners */
