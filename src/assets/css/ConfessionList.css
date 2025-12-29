@@ -36,6 +36,7 @@
   
   flex-grow: 1;                /* Pushes the footer to the bottom of the card */
   margin-bottom: 20px;
+  text-align: justify;
 }
 
 .time-ago {
