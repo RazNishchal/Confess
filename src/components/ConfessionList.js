@@ -13,34 +13,37 @@ const ConfessionList = () => {
 
   useEffect(() => {
     deleteData();
-    onValue(ref(database, "confessions"), (snapshot) => {
+    const confessionsRef = ref(database, "confessions");
+    onValue(confessionsRef, (snapshot) => {
       let _data = snapshot.val();
       let _list = [];
       for (let key in _data) {
-        _list.push(_data[key]);
+        _list.push({ id: key, ..._data[key] });
       }
+      // Sort newest first
+      _list.sort((a, b) => b.createdAt - a.createdAt);
       setConfessionList(_list);
       setIsLoading(false);
     });
   }, []);
 
   return (
-    <div className="confession-container">
+    <div className="list-wrapper">
       <div className="confession-grid">
         {isLoading ? (
           <div className="full-width">
-            <ShimmerSimpleGallery card imageHeight={300} row={2} col={2} caption />
+            <ShimmerSimpleGallery card imageHeight={250} row={2} col={2} caption />
           </div>
-        ) : confessionList && confessionList.length > 0 ? (
-          confessionList.map((confession, index) => {
-            let _date = new Date(confession.createdAt);
+        ) : confessionList.length > 0 ? (
+          confessionList.map((confession) => {
+            const _date = new Date(confession.createdAt);
             return (
-              <div key={index} className="confession-card">
-                <div className="confession-date">
-                  {`${_date.getFullYear()} ${monthList[_date.getMonth()]} ${_date.getDate()}`}
+              <div key={confession.id} className="confession-card">
+                <div className="card-date">
+                  {`${monthList[_date.getMonth()]} ${_date.getDate()}, ${_date.getFullYear()}`}
                 </div>
                 
-                <div className="confession-note">
+                <div className="card-content">
                   {confession.note}
                 </div>
 
