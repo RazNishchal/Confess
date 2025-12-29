@@ -16,6 +16,10 @@
   box-shadow: 0px 0px 5px #ccc;
   position: relative;
 }
+.confessed-note{
+  height: 80%;
+  width: 90%;
+}
 
 .time-ago {
   position: absolute;
