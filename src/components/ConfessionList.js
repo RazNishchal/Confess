@@ -20,7 +20,6 @@ const ConfessionList = () => {
       for (let key in _data) {
         _list.push({ id: key, ..._data[key] });
       }
-      // Sort newest first
       _list.sort((a, b) => b.createdAt - a.createdAt);
       setConfessionList(_list);
       setIsLoading(false);
@@ -28,33 +27,33 @@ const ConfessionList = () => {
   }, []);
 
   return (
-    <div className="list-wrapper">
+    <div className="confession-page-container">
       <div className="confession-grid">
         {isLoading ? (
-          <div className="full-width">
-            <ShimmerSimpleGallery card imageHeight={250} row={2} col={2} caption />
+          <div className="status-message">
+            <ShimmerSimpleGallery card imageHeight={200} row={2} col={2} caption />
           </div>
         ) : confessionList.length > 0 ? (
           confessionList.map((confession) => {
             const _date = new Date(confession.createdAt);
             return (
               <div key={confession.id} className="confession-card">
-                <div className="card-date">
+                <div className="date-header">
                   {`${monthList[_date.getMonth()]} ${_date.getDate()}, ${_date.getFullYear()}`}
                 </div>
                 
-                <div className="card-content">
+                <div className="confession-body">
                   {confession.note}
                 </div>
 
-                <div className="time-ago">
+                <div className="time-footer">
                   <Moment fromNow>{confession.createdAt}</Moment>
                 </div>
               </div>
             );
           })
         ) : (
-          <div className="full-width">No Confession Notes..</div>
+          <div className="status-message">No Confession Notes..</div>
         )}
       </div>
     </div>
