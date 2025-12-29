@@ -60,7 +60,7 @@ const ConfessionList = () => {
                 } ${_date.getDate()}`}</div>
                 <br />
                 <br />
-                {confession.note}
+               <div className="confessed-note"> {confession.note} </div>
 
                 <div className="time-ago">
                   <Moment fromNow>{confession.createdAt}</Moment>
