@@ -1,84 +1,24 @@
-/* Container to provide consistent side margins */
-.confession-page-container {
-  width: 100%;
-  padding: 40px 5%; 
+.confession-list {
   display: flex;
   justify-content: center;
-  box-sizing: border-box;
+  flex-wrap: wrap;
+  margin-top: 55px;
 }
 
-/* THE GRID: Forces 2 columns horizontally */
-.confession-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Exactly 2 cards per row */
-  gap: 25px; /* Spacing between all cards */
-  width: 100%;
-  max-width: 1200px;
-}
-
-/* Card Style */
 .confession-card {
-  background: #ffffff;
-  border-radius: 12px;
+  height: 200px;
+  width: 35%;
+  /* border: 1px solid blue; */
+  margin-left: 20px;
+  margin-top: 20px;
   padding: 20px;
-  padding-bottom: 45px; /* Space for the bottom timestamp */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 1px solid #f0f0f0;
-  
-  /* Height fix: Allow expansion for long text */
-  min-height: 150px;
-  height: auto; 
-  
+  border-radius: 12px;
+  box-shadow: 0px 0px 5px #ccc;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s ease;
 }
 
-.confession-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-
-.date-header {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #888;
-  margin-bottom: 15px;
-}
-
-.confession-body {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #333;
-  /* FIX FOR LONG CONTENT */
-  word-wrap: break-word;
-  white-space: pre-wrap; /* Keeps user line breaks */
-  flex-grow: 1;
-}
-
-.time-footer {
+.time-ago {
   position: absolute;
-  bottom: 12px;
-  right: 20px;
-  font-size: 0.75rem;
-  color: #bbb;
-}
-
-/* Full-width helpers for loading/empty text */
-.status-message {
-  grid-column: 1 / -1;
-  text-align: center;
-  width: 100%;
-}
-
-/* --- MOBILE RESPONSIVENESS --- */
-@media (max-width: 800px) {
-  .confession-grid {
-    grid-template-columns: 1fr; /* Stack into 1 column on mobile */
-  }
-  
-  .confession-page-container {
-    padding: 20px 15px; /* Better spacing for small screens */
-  }
+  bottom: 5px;
+  font-size: small;
 }
