@@ -51,3 +51,26 @@
   bottom: 5px;
   font-size: small;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .confession-list {
+    margin-top: 30px;
+    padding: 0 15px; /* Adds breathing room on the sides of the screen */
+  }
+
+  .confession-card {
+    width: 100%;     /* Cards take full width on mobile */
+    margin-left: 0;  /* Remove the left margin used for desktop spacing */
+    height: auto;    /* Optional: allows height to grow if content is long */
+    min-height: 180px; 
+    box-sizing: border-box; /* Ensures padding doesn't break the width */
+  }
+
+  .confessed-note {
+    width: 90%;      /* Adjusted to prevent clipping with scrollbars */
+    position: relative; /* Changing from absolute helps with 'height: auto' */
+    height: auto;
+    max-height: 120px; /* Limits height so card doesn't get too long */
+  }
+}
