@@ -1,73 +1,81 @@
+/* Container sizing */
 .confession-container {
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* Centers the content horizontally */
+  padding: 20px;
   width: 100%;
   box-sizing: border-box;
 }
 
-/* The box containing the textarea and button */
 .add-confession-post {
-  width: 100%;
-  max-width: 600px; /* Limits width on large screens */
+  /* 80% width on mobile, 70% on large screens via media query below */
+  width: 80%; 
   display: flex;
   flex-direction: column;
+  align-items: center; /* Centers the button under the textarea */
   gap: 15px;
 }
 
-/* Responsive Textarea */
+/* Textarea Styling */
 .confession-textarea {
   width: 100%;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
+  padding: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 20px; /* Highly rounded corners */
+  font-size: 16px;
   font-family: inherit;
-  font-size: 16px; /* Prevents iOS zoom-on-focus */
-  resize: vertical; /* Allows user to resize height only */
-  box-sizing: border-box;
+  transition: all 0.3s ease; /* Smooth hover/focus transition */
   outline: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Hover & Focus for Textarea */
+.confession-textarea:hover {
+  border-color: #bbb;
+}
+
+.confession-textarea:focus {
+  border-color: #333;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 /* Button Styling */
 .confess-btn {
-  width: 100%;
-  padding: 12px;
+  width: auto; /* Makes button only as wide as its text */
+  min-width: 150px; /* Ensures it's not too small */
+  padding: 12px 30px;
   background-color: #333;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 25px; /* Pill-shaped button */
   cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s ease;
+  font-weight: 600;
+  transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
+/* Hover & Active for Button */
 .confess-btn:hover {
-  background-color: #555;
+  background-color: #000;
+  transform: translateY(-2px); /* Slight lift effect */
 }
 
-/* Footer Section */
+.confess-btn:active {
+  transform: translateY(0);
+}
+
+/* Media Query for Large Screens */
+@media (min-width: 1024px) {
+  .add-confession-post {
+    width: 70%; /* 70% coverage on large devices */
+  }
+}
+
+/* Footer alignment */
 .confession-footer {
-  margin-top: 10px;
+  margin-top: 15px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: #666;
-  gap: 5px;
-}
-
-.confession-footer small {
-  font-size: 12px;
-}
-
-/* Media Query for very small screens */
-@media (max-width: 480px) {
-  .confession-container {
-    padding: 10px;
-  }
-  
-  .confession-textarea {
-    rows: 6; /* You can't change rows via CSS, but you can limit height */
-    min-height: 150px;
-  }
+  gap: 8px;
+  color: #888;
 }
