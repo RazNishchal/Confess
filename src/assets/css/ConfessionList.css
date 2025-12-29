@@ -30,6 +30,7 @@
   color: #333;
   
   /* CRITICAL: Text Wrapping & Overflow Fixes */
+  overflow-y: auto;
   word-wrap: break-word;       /* Breaks long strings of text */
   overflow-wrap: break-word;   /* Modern browser support for word-wrap */
   white-space: pre-wrap;      /* Preserves line breaks from the textarea */
