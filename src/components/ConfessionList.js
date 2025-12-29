@@ -9,65 +9,54 @@ const ConfessionList = () => {
   const [confessionList, setConfessionList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const monthList = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "July", "Aug", "Sep", "Oct", "Nov", "Dec",
-  ];
+  const monthList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   useEffect(() => {
-    // Run cleanup for expired data
     deleteData();
-
     const confessionsRef = ref(database, "confessions");
-    
-    // Listen for data
     const unsubscribe = onValue(confessionsRef, (snapshot) => {
       const data = snapshot.val();
       const list = [];
-
       for (let key in data) {
         list.push({ id: key, ...data[key] });
       }
-
-      // Sort: Newest confessions at the top
       list.sort((a, b) => b.createdAt - a.createdAt);
-
       setConfessionList(list);
       setIsLoading(false);
     });
-
-    // Cleanup listener on unmount
     return () => unsubscribe();
   }, []);
 
   return (
-    <div className="confession-list-container">
-      <div className="confession-list">
+    <div className="confession-page-wrapper">
+      <div className="confession-grid">
         {isLoading ? (
-          <div className="loading-wrapper">
-            <ShimmerSimpleGallery card imageHeight={250} row={2} col={2} caption />
+          <div className="full-width">
+            <ShimmerSimpleGallery card imageHeight={200} row={2} col={2} caption />
           </div>
         ) : confessionList.length > 0 ? (
           confessionList.map((confession) => {
             const _date = new Date(confession.createdAt);
             return (
               <div key={confession.id} className="confession-card">
-                <div className="confession-date">
-                  {`${monthList[_date.getMonth()]} ${_date.getDate()}, ${_date.getFullYear()}`}
+                <div className="card-header">
+                  <span className="date-text">
+                    {`${monthList[_date.getMonth()]} ${_date.getDate()}, ${_date.getFullYear()}`}
+                  </span>
                 </div>
                 
-                <div className="confession-content">
-                  {confession.note}
+                <div className="card-body">
+                  <p className="confession-text">{confession.note}</p>
                 </div>
 
-                <div className="time-ago">
+                <div className="card-footer">
                   <Moment fromNow>{confession.createdAt}</Moment>
                 </div>
               </div>
             );
           })
         ) : (
-          <div className="no-data">No Confession Notes found..</div>
+          <div className="full-width">No Confession Notes found..</div>
         )}
       </div>
     </div>
