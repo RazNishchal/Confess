@@ -9,37 +9,43 @@ const ConfessionList = () => {
   const [confessionList, setConfessionList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const monthList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const monthList = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "July", "Aug", "Sep", "Oct", "Nov", "Dec",
+  ];
 
   useEffect(() => {
+    // Run cleanup for expired data
     deleteData();
+
     const confessionsRef = ref(database, "confessions");
     
-    // Using onValue to listen for real-time updates
+    // Listen for data
     const unsubscribe = onValue(confessionsRef, (snapshot) => {
-      const _data = snapshot.val();
-      const _list = [];
+      const data = snapshot.val();
+      const list = [];
 
-      for (let key in _data) {
-        _list.push({ id: key, ..._data[key] });
+      for (let key in data) {
+        list.push({ id: key, ...data[key] });
       }
 
-      // Optional: Sort by newest first
-      _list.sort((a, b) => b.createdAt - a.createdAt);
+      // Sort: Newest confessions at the top
+      list.sort((a, b) => b.createdAt - a.createdAt);
 
-      setConfessionList(_list);
+      setConfessionList(list);
       setIsLoading(false);
     });
 
-    return () => unsubscribe(); // Cleanup listener on unmount
+    // Cleanup listener on unmount
+    return () => unsubscribe();
   }, []);
 
   return (
     <div className="confession-list-container">
       <div className="confession-list">
         {isLoading ? (
-          <div className="shimmer-wrapper">
-            <ShimmerSimpleGallery card imageHeight={300} row={2} col={2} caption />
+          <div className="loading-wrapper">
+            <ShimmerSimpleGallery card imageHeight={250} row={2} col={2} caption />
           </div>
         ) : confessionList.length > 0 ? (
           confessionList.map((confession) => {
@@ -61,7 +67,7 @@ const ConfessionList = () => {
             );
           })
         ) : (
-          <p className="no-data">No Confession Notes found...</p>
+          <div className="no-data">No Confession Notes found..</div>
         )}
       </div>
     </div>
