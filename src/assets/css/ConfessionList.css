@@ -1,24 +1,80 @@
+.confession-list-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
 .confession-list {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 55px;
+  flex-wrap: wrap; /* Allows cards to wrap to the next line */
+  gap: 20px; /* Modern way to add spacing between flex items */
+  width: 90%; /* Covers most of the screen */
+  margin-top: 20px;
 }
 
 .confession-card {
-  height: 200px;
-  width: 35%;
-  /* border: 1px solid blue; */
-  margin-left: 20px;
-  margin-top: 20px;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0px 0px 5px #ccc;
+  /* Dynamic width: ~45% on desktop, 90%+ on mobile */
+  flex: 1 1 350px; 
+  max-width: 450px;
+  
+  min-height: 200px; /* Minimum height, but can grow */
+  height: auto;      /* Allows content to expand without overflow */
+  
+  padding: 25px;
+  padding-bottom: 40px; /* Space for the absolute positioned 'time-ago' */
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+  box-sizing: border-box;
+}
+
+.confession-card:hover {
+  transform: translateY(-5px);
+}
+
+.confession-date {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+.confession-content {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  word-wrap: break-word; /* Ensures long words don't break the layout */
+  white-space: pre-wrap; /* Preserves line breaks from the textarea */
 }
 
 .time-ago {
   position: absolute;
-  bottom: 5px;
-  font-size: small;
+  bottom: 12px;
+  right: 20px;
+  font-size: 0.75rem;
+  color: #999;
+  font-style: italic;
+}
+
+/* Shimmer responsive width */
+.shimmer-wrapper {
+  width: 80%;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .confession-list {
+    width: 95%;
+  }
+  
+  .confession-card {
+    flex: 1 1 100%; /* Take full width on small screens */
+    min-height: 150px;
+  }
 }
