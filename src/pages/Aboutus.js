@@ -7,6 +7,10 @@ const Aboutus = () => {
     <div style={{ textAlign: "center", padding: "30px" }}>
       <h2>About us</h2>
       <br />
+  <br/>
+  <div className="myphoto">
+  <img src="nishchal.jpg"></img>
+  </div>
       <p>
         Confess Note is a public forum; where you can confess your ideas or
         opinions or thoughts about anything. And , all the confessions made will
