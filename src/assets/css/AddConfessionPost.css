@@ -5,6 +5,7 @@
   align-items: center; /* Centers the content horizontally */
   padding: 20px;
   width: 100%;
+  height: 40vh;
   box-sizing: border-box;
 }
 
@@ -27,7 +28,7 @@
   font-family: inherit;
   transition: all 0.3s ease; /* Smooth hover/focus transition */
   outline: none;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 5px rgba(65, 149, 252, 0.4);
 }
 
 /* Hover & Focus for Textarea */
@@ -37,7 +38,7 @@
 
 .confession-textarea:focus {
   border-color: #333;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 5px rgba(65, 149, 252, 0.6);
 }
 
 /* Button Styling */
